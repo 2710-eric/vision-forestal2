@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 
-// ENLACE ESPECÍFICO PROPORCIONADO POR EL USUARIO
-const PROJECT_SHARE_LINK = "https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221QJVunkLs_u6x3TimJkO45g8u3guWh2AD%22%5D,%22action%22:%22open%22,%22userId%22:%22117238167330404210211%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing";
+// ENLACE OFICIAL DE VERCEL PROPORCIONADO POR EL USUARIO
+const PROJECT_SHARE_LINK = "https://vision-forestal2-s4x5.vercel.app/";
 
 const LeafIcon: React.FC = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,80 +123,82 @@ const Header: React.FC<HeaderProps> = ({ showNavLinks }) => {
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <div 
-          className="flex items-center space-x-2 cursor-pointer" 
+          className="flex items-center space-x-2 cursor-pointer flex-shrink-0" 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <LeafIcon />
           <h1 className="text-2xl font-bold text-brand-green tracking-tight">Vision Forestal</h1>
         </div>
         
-        {/* Desktop Navigation */}
-        <nav className={`hidden md:flex space-x-8 transition-opacity duration-500 ${showNavLinks ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <button onClick={() => scrollToSection('solucion')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Solución</button>
-          <button onClick={() => scrollToSection('como-funciona')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Cómo Funciona</button>
-          <button onClick={() => scrollToSection('prevencion')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Prevención</button>
-          <button onClick={() => scrollToSection('impacto')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Impacto</button>
-          <button onClick={() => scrollToSection('estadisticas')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Estadísticas</button>
-          
-          {/* Contacto Popover */}
-          <div className="relative">
-            <button 
-                onClick={() => setShowContact(!showContact)}
-                className="text-gray-600 hover:text-brand-green font-medium transition-colors"
-            >
-                Contacto
-            </button>
-            {showContact && (
-                <>
-                <div className="fixed inset-0 z-10" onClick={() => setShowContact(false)}></div>
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 p-4 z-20 animate-fade-in">
-                    <p className="text-sm text-gray-500 mb-1">WhatsApp de Eric:</p>
-                    <a href="https://wa.me/56958949818" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-brand-green font-bold text-lg hover:text-brand-orange transition-colors">
-                        <WhatsAppIcon />
-                        <span>+56 9 5894 9818</span>
-                    </a>
+        {/* Desktop Navigation & Share Group */}
+        <div className={`hidden md:flex items-center space-x-8 transition-opacity duration-500 ${showNavLinks ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <nav className="flex space-x-8 items-center">
+                <button onClick={() => scrollToSection('solucion')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Solución</button>
+                <button onClick={() => scrollToSection('como-funciona')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Cómo Funciona</button>
+                <button onClick={() => scrollToSection('prevencion')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Prevención</button>
+                <button onClick={() => scrollToSection('impacto')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Impacto</button>
+                <button onClick={() => scrollToSection('estadisticas')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Estadísticas</button>
+                
+                {/* Contacto Popover - Wrapped for alignment */}
+                <div className="relative flex items-center">
+                    <button 
+                        onClick={() => setShowContact(!showContact)}
+                        className="text-gray-600 hover:text-brand-green font-medium transition-colors flex items-center h-full"
+                    >
+                        Contacto
+                    </button>
+                    {showContact && (
+                        <>
+                        <div className="fixed inset-0 z-10" onClick={() => setShowContact(false)}></div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 bg-white rounded-xl shadow-xl border border-gray-100 p-4 z-20 animate-fade-in">
+                            <p className="text-sm text-gray-500 mb-1">WhatsApp de Eric:</p>
+                            <a href="https://wa.me/56958949818" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-brand-green font-bold text-lg hover:text-brand-orange transition-colors">
+                                <WhatsAppIcon />
+                                <span>+56 9 5894 9818</span>
+                            </a>
+                        </div>
+                        </>
+                    )}
                 </div>
-                </>
-            )}
-          </div>
 
-          <button onClick={() => scrollToSection('feedback')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Opinión</button>
-        </nav>
+                <button onClick={() => scrollToSection('feedback')} className="text-gray-600 hover:text-brand-green font-medium transition-colors">Opinión</button>
+            </nav>
 
-        {/* Share Button (Desktop & Mobile) */}
-        <div className="relative">
-            <button 
-              onClick={() => setIsShareOpen(!isShareOpen)}
-              className={`flex items-center space-x-2 bg-gradient-to-r from-brand-light-green to-brand-green text-white px-4 py-2 rounded-full hover:shadow-lg transition-all transform hover:scale-105 ${showNavLinks ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-            >
-              <ShareIcon />
-              <span className="font-semibold">Compartir</span>
-            </button>
+            {/* Share Button (Separated for spacing) */}
+            <div className="relative ml-4">
+                <button 
+                onClick={() => setIsShareOpen(!isShareOpen)}
+                className="flex items-center space-x-2 bg-gradient-to-r from-brand-light-green to-brand-green text-white px-5 py-2 rounded-full hover:shadow-lg transition-all transform hover:scale-105"
+                >
+                <ShareIcon />
+                <span className="font-semibold">Compartir</span>
+                </button>
 
-            {isShareOpen && (
-                <>
-                <div className="fixed inset-0 z-40" onClick={() => setIsShareOpen(false)}></div>
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-fade-in">
-                    <button onClick={() => handleShare('whatsapp')} className="w-full text-left px-4 py-3 hover:bg-green-50 flex items-center space-x-3 text-gray-700 transition-colors">
-                        <span className="text-green-500"><WhatsAppIcon /></span>
-                        <span>WhatsApp</span>
-                    </button>
-                    <button onClick={() => handleShare('facebook')} className="w-full text-left px-4 py-3 hover:bg-blue-50 flex items-center space-x-3 text-gray-700 transition-colors">
-                        <span className="text-blue-600"><FacebookIcon /></span>
-                        <span>Facebook</span>
-                    </button>
-                    <button onClick={() => handleShare('instagram')} className="w-full text-left px-4 py-3 hover:bg-pink-50 flex items-center space-x-3 text-gray-700 transition-colors">
-                        <span className="text-pink-500"><InstagramIcon /></span>
-                        <span>Instagram</span>
-                    </button>
-                    <div className="border-t border-gray-100"></div>
-                    <button onClick={() => handleShare('copy')} className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center space-x-3 text-gray-700 transition-colors">
-                        <span className="text-gray-500"><LinkIcon /></span>
-                        <span>Copiar Enlace</span>
-                    </button>
-                </div>
-                </>
-            )}
+                {isShareOpen && (
+                    <>
+                    <div className="fixed inset-0 z-40" onClick={() => setIsShareOpen(false)}></div>
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-fade-in">
+                        <button onClick={() => handleShare('whatsapp')} className="w-full text-left px-4 py-3 hover:bg-green-50 flex items-center space-x-3 text-gray-700 transition-colors">
+                            <span className="text-green-500"><WhatsAppIcon /></span>
+                            <span>WhatsApp</span>
+                        </button>
+                        <button onClick={() => handleShare('facebook')} className="w-full text-left px-4 py-3 hover:bg-blue-50 flex items-center space-x-3 text-gray-700 transition-colors">
+                            <span className="text-blue-600"><FacebookIcon /></span>
+                            <span>Facebook</span>
+                        </button>
+                        <button onClick={() => handleShare('instagram')} className="w-full text-left px-4 py-3 hover:bg-pink-50 flex items-center space-x-3 text-gray-700 transition-colors">
+                            <span className="text-pink-500"><InstagramIcon /></span>
+                            <span>Instagram</span>
+                        </button>
+                        <div className="border-t border-gray-100"></div>
+                        <button onClick={() => handleShare('copy')} className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center space-x-3 text-gray-700 transition-colors">
+                            <span className="text-gray-500"><LinkIcon /></span>
+                            <span>Copiar Enlace</span>
+                        </button>
+                    </div>
+                    </>
+                )}
+            </div>
         </div>
 
         {/* Mobile Menu Button */}
